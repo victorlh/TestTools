@@ -1,19 +1,28 @@
 package com.tools;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class IoUtils {
+	//InputStream  为字节流
+	//InputStreamReader 
+	//                 InputStreamReader(byte) ->Unicode(char)
 
 	/**
 	 * 读取文件（InputStream）
@@ -36,6 +45,9 @@ public class IoUtils {
 			String str = new String(buf,0, bytesRead);
 			strb.append(str);
 		}
+		//强行写磁盘
+		//in.flush();
+		//close会先执行flush再关闭文件
 		in.close();
 		return strb;
 	}
@@ -65,6 +77,12 @@ public class IoUtils {
 		return chunk;
 	}
 	
+	/**
+	 * 读取文件(InputStreamReader)
+	 * @param filePathAndName
+	 * @return
+	 * @throws Exception
+	 */
 	public static ArrayList readFile(String filePathAndName) throws Exception{
 		File file = new File(filePathAndName);
 		ArrayList text = new ArrayList();
@@ -84,6 +102,29 @@ public class IoUtils {
 	}
 	
 	/**
+	 * 读取文件内容（FileReader）
+	 * @param filePathAndName
+	 * @return
+	 * @throws Exception
+	 */
+	public static String fileRead(String filePathAndName) throws Exception{
+		String fileContent = "";
+		File file = new File(filePathAndName);
+		if(file.isFile()&&file.exists()){
+			//InputStream in = new FileInputStream(file);
+			//InputStreamReader re = new InputStreamReader(in);
+			//下面这种写法等同于上面两个写法的简写
+			Reader read = new FileReader(file);
+			int dex = 0;
+			while((dex=read.read())!=-1){
+				fileContent+= (char)dex;
+			}
+			read.close();
+		}
+		return fileContent;
+	}
+	
+	/**
 	 * BufferedReader读取文件
 	 * @param filePathAndName
 	 * @return
@@ -96,8 +137,9 @@ public class IoUtils {
 		File f = new File(filePathAndName);
 		//判断是否为一个文件且存在
 		if (f.isFile() && f.exists()) {
-			InputStreamReader read = new InputStreamReader(new FileInputStream(
-					f), "UTF-8");
+//			InputStreamReader read = new InputStreamReader(new FileInputStream(
+//					f), "UTF-8");
+			Reader read = new FileReader(f);
 			BufferedReader reader = new BufferedReader(read);
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -109,6 +151,7 @@ public class IoUtils {
 		}
 		return fileContent;
 	}
+	
 
 
 
@@ -141,6 +184,55 @@ public class IoUtils {
 		in.close();
 		out.close();
 		System.out.println("done!");
+	}
+	
+	
+	/**
+	 * 写文件（OutputStreamWriter）
+	 * @param str
+	 * @param filePathAndName
+	 * @throws Exception
+	 */
+	public static void write(String str,String filePathAndName) throws Exception{
+		File file = new File(filePathAndName);
+		OutputStream out = new FileOutputStream(file);
+		OutputStreamWriter writeOut = new OutputStreamWriter(out,"utf-8");
+		if(!file.exists()){
+			file.createNewFile();
+		}
+		writeOut.write(str,0,str.length());
+		writeOut.close();
+	}
+	
+	/**
+	 * 写文件（BufferedWriter）
+	 * @param str
+	 * @param filePathAndName
+	 * @throws Exception
+	 */
+	public static void writeBuffer(String str,String filePathAndName) throws Exception{
+		File file = new File(filePathAndName);
+		OutputStream out = new FileOutputStream(file);
+		OutputStreamWriter writeOut = new OutputStreamWriter(out,"utf-8");
+		BufferedWriter bufOut = new BufferedWriter(writeOut);
+		if(!file.exists()){
+			file.createNewFile();
+		}
+		bufOut.write(str,0,str.length());
+		bufOut.close();
+	}
+	
+	/**
+	 * 写文件（常用方法）
+	 * @param str
+	 * @param filePathsAndName
+	 * @throws Exception
+	 */
+	public static void printWriter(String str,String filePathsAndName) throws Exception{
+		File file = new File(filePathsAndName);
+		PrintWriter pWriter = new PrintWriter(file);
+		pWriter.println(str);
+		pWriter.close();
 	}
 
 	/**
