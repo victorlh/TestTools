@@ -43,6 +43,7 @@ public class Test extends LightTest {
 				for(int i=0;i<arry.size();i++){
 					System.out.print(arry.get(i));
 				}
+				
 				System.out.println("_____________");
 //				System.out.println(IoUtils.read(src));
 //				IoUtils.appendWrite("测试lhlhlhlh", dest);
