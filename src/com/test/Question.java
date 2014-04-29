@@ -11,6 +11,7 @@ public class Question {
       new ArrayList<String>();
   private char answer;
   
+  //构造方法
   public Question() {
   }
   
@@ -29,9 +30,13 @@ public class Question {
   public List<String> getOptions() {
     return options;
   }
+  
+  //问题选项
   public void setOptions(List<String> options) {
     this.options = options;
   }
+  
+  //问题内容
   public String getText() {
     return text;
   }
@@ -44,6 +49,7 @@ public class Question {
     StringBuilder buf = new StringBuilder();
     buf.append(id).append(" ").append(text)
       .append("\n");
+    //用Iterator进行迭代
 //    for (Iterator i = options.iterator(); i.hasNext();) {
 //      String o = (String) i.next();
 //       
