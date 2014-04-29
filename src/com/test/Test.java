@@ -25,6 +25,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import com.tools.CollectionRank;
 import com.tools.IoUtils;
 
 public class Test extends LightTest {
@@ -33,18 +34,28 @@ public class Test extends LightTest {
 //		Test.collection();
 		String src = "src/test.txt";
 		String dest = "src/desc.txt";
-		Test test = new Test();
+		int[] a = {1,2,3,4,5,6};
+//		LinkedList k = new LinkedList();
+		int[] k = {3,2,4,1,5};
+//		CollectionRank.arrayRank(k);
+		Map map = new HashMap();
+		map.put("key1", "value01");
+		map.put("key02", "value02");
+		map.put("key03", "value03");
+		CollectionRank.mapIterator(map);
+		
+		System.out.println("______________");
+//		for(int i:CollectionRank.arrayShuffle(a)){
+//			System.out.println(i);
+//		}
+//		
+		
 			try {
 //				test.copyFile(src, dest);
 //				IoUtils.read(src);
 //				IoUtils.copyFile(src, dest);
 //				IoUtils.readFromFile(src);
-				ArrayList arry = IoUtils.readFile(src);
-				for(int i=0;i<arry.size();i++){
-					System.out.print(arry.get(i));
-				}
-				
-				System.out.println("_____________1");
+//				System.out.println(IoUtils.readBuffer(src));
 //				System.out.println(IoUtils.read(src));
 //				IoUtils.appendWrite("测试lhlhlhlh", dest);
 			} catch (Exception e) {
@@ -261,68 +272,7 @@ public class Test extends LightTest {
 		return ary2;
 	}
 
-	// 数组排序
-	public static int[] arytest(int[] ary) {
-		int lengs = ary.length;
-		for (int i = 0; i < ary.length; i++) {
-			for (int j = i + 1; j < ary.length; j++) {
-				if (ary[i] > ary[j]) {
-					int k = ary[i];
-					ary[i] = ary[j];
-					ary[j] = k;
-				}
-			}
-		}
 
-		return ary;
-	}
-
-	// 冒泡排序
-	public static int[] bubbleSort(int[] args) {// 冒泡排序算法
-		for (int i = 0; i < args.length - 1; i++) {
-			for (int j = i + 1; j < args.length; j++) {
-				if (args[i] > args[j]) {
-					int temp = args[i];
-					args[i] = args[j];
-					args[j] = temp;
-				}
-			}
-		}
-		return args;
-	}
-
-	// 选择排序
-	public static int[] selectSort(int[] args) {// 选择排序算法
-		for (int i = 0; i < args.length - 1; i++) {
-			int min = i;
-			for (int j = i + 1; j < args.length; j++) {
-				if (args[min] > args[j]) {
-					min = j;
-				}
-			}
-			if (min != i) {
-				int temp = args[i];
-				args[i] = args[min];
-				args[min] = temp;
-			}
-		}
-		return args;
-	}
-
-	// 插入排序算法
-	public static int[] insertSort(int[] args) {// 插入排序算法
-		for (int i = 1; i < args.length; i++) {
-			for (int j = i; j > 0; j--) {
-				if (args[j] < args[j - 1]) {
-					int temp = args[j - 1];
-					args[j - 1] = args[j];
-					args[j] = temp;
-				} else
-					break;
-			}
-		}
-		return args;
-	}
 
 	public static int f(int n) {
 		if (n == 1) {

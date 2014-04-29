@@ -57,6 +57,8 @@ public class IoUtils {
 	 * @param filename
 	 * @return
 	 * @throws IOException
+	 * InputStream 读一个字节写一个字节，
+	 * bufferInputStream 读多个字节放到内存达等凑够了缓冲区大小时再一起写入
 	 */
 	public static String readBuffer(String filePathAndName) throws IOException {
 		byte[] buffer = new byte[1024];
