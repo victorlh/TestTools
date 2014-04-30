@@ -28,7 +28,7 @@ import java.util.Vector;
 import com.tools.CollectionRank;
 import com.tools.IoUtils;
 
-public class Test extends LightTest {
+public class Test {
 
 	public static void main(String args[]){	
 //		Test.collection();
