@@ -25,46 +25,46 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import com.tools.CollectionRank;
 import com.tools.IoUtils;
 
 public class Test {
 
 	public static void main(String args[]){	
-//		Test.collection();
-		String src = "src/test.txt";
-		String dest = "src/desc.txt";
-		int[] a = {1,2,3,4,5,6};
-//		LinkedList k = new LinkedList();
-		int[] k = {3,2,4,1,5};
-//		CollectionRank.arrayRank(k);
-		Map map = new HashMap();
-		map.put("key1", "value01");
-		map.put("key02", "value02");
-		map.put("key03", "value03");
-		CollectionRank.mapIterator(map);
-		
-		System.out.println("______________");
-//		for(int i:CollectionRank.arrayShuffle(a)){
-//			System.out.println(i);
-//		}
-//		
-		
-			try {
-//				test.copyFile(src, dest);
-//				IoUtils.read(src);
-//				IoUtils.copyFile(src, dest);
-//				IoUtils.readFromFile(src);
-//				System.out.println(IoUtils.readBuffer(src));
-//				System.out.println(IoUtils.read(src));
-//				IoUtils.appendWrite("测试lhlhlhlh", dest);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
+		JFrame win = new JFrame("Hello");//标题栏
+		win.setSize(300,200);//边框大小
+		win.getContentPane().add(new JLabel("HI"));//内容面板，新建一个标签
+		win.setVisible(true);
+		
+		
 	}
 	
+	public void test1(){
+		System.out.println("test1");
+	}
+	
+	class MyThread extends Thread{
+		public void run(){
+			for(int i=0;i<100;i++){
+				System.out.println("no 01");
+			}
+			
+		}
+		
+	}
+	
+	class YouThread extends Thread{
+		public void run(){
+			for(int i=0;i<100;i++){
+				System.out.println("the 02");
+			}
+			
+		}
+	}
 
 	public static void collection(){
 		List list = new Vector();
