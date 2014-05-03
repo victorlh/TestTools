@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,12 +14,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class IoUtils {
 	//InputStream  为字节流
@@ -252,6 +257,60 @@ public class IoUtils {
 		byte[] buf = str.getBytes("GBK");
 		out.write(buf);
 		out.close();
+	}
+	
+	/**
+	 * 将字节流转化成16进制的字符
+	 * @param buf
+	 * @return
+	 */
+	public static String toHexString(byte[] buf) {
+		StringBuilder s = new StringBuilder();
+		for (byte b : buf) {
+			String hex = Integer.toHexString(b & 0xff);
+			hex = leftPad(hex, '0', 2);
+			s.append(hex).append(" ");
+		}
+		return s.toString();
+	}
+	
+	  private static String leftPad(
+		      String hex, char c, int size) {
+		    char[] cs = new char[size];
+		    Arrays.fill( cs, c);
+		    System.arraycopy(hex.toCharArray(), 0, 
+		        cs, cs.length-hex.length(), hex.length());
+		    return new String(cs);
+		  }
+	/**
+	 * 序列化对象,转成16进制的字节流
+	 * @param obj
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] serialize(Object obj) throws Exception{
+		ByteArrayOutputStream out = new ByteArrayOutputStream(); //目标节点流
+		ObjectOutputStream oos = new ObjectOutputStream(out); //序列化流
+		oos.writeObject(obj); //序列化对象到流中
+		oos.close(); //完成关闭流（自动清理缓冲区）
+		byte[] ary = out.toByteArray(); //获取序列化结果
+		// foo(对象)->ary（流）
+//		String s = IoUtils.toHexString(ary);
+		return ary;
+	}
+	
+	/**
+	 * 对象的反序列化，对象的序列化和反序列化构成了对象的深度复制
+	 * @param ary
+	 * @return
+	 * @throws Exception
+	 */
+	public static Object unserialize(byte[] ary) throws Exception{
+		ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(ary));
+		Object o = ois.readObject();
+		ois.close();
+		return o;
+		
 	}
 
 }
