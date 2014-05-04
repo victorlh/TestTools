@@ -5,7 +5,10 @@ import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 //import java.util.Arrays;
@@ -19,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
@@ -30,15 +34,22 @@ import javax.swing.JLabel;
 
 import com.tools.CollectionRank;
 import com.tools.IoUtils;
+import com.tools.PropertiesCfg;
 
 public class Test {
 
-	public static void main(String args[]){	
+	public static void main(String args[]) throws Exception{	
 
-		JFrame win = new JFrame("Hello");//标题栏
-		win.setSize(300,200);//边框大小
-		win.getContentPane().add(new JLabel("HI"));//内容面板，新建一个标签
-		win.setVisible(true);
+//		JFrame win = new JFrame("Hello");//标题栏
+//		win.setSize(300,200);//边框大小
+//		win.getContentPane().add(new JLabel("HI"));//内容面板，新建一个标签
+//		win.setVisible(true);
+//		Properties pr = new Properties();
+//		FileReader read = new FileReader("src/config.properties");
+//		pr.load(read);
+		PropertiesCfg cfg = new PropertiesCfg();
+		System.out.println(cfg.readPro("key"));
+//		pr.get("key");
 		
 		
 	}
