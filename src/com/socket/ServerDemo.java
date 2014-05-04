@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerDemo {
+	//
 	public static void main(String[] args) throws Exception {
 		ServerDemo server = new ServerDemo();
 		server.listen(8900);
@@ -16,6 +17,7 @@ public class ServerDemo {
 		ServerSocket ss = new ServerSocket(port);
 		while (true) {
 			Socket socket = ss.accept();// 等待客户的请求
+			//创建并执行线程 
 			new ClientAgent(socket).start();
 		}
 	}
@@ -27,7 +29,7 @@ public class ServerDemo {
 		public ClientAgent(Socket socket) {
 			this.socket = socket;
 		}
-
+		//线程执行内容
 		public void run() {
 			try {
 				BufferedReader in = new BufferedReader(new InputStreamReader(
