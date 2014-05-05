@@ -22,6 +22,7 @@ public class JdbcDemo {
 		//查找
 		String query = "select * from test where name = \"lh01\"";
 		ResultSet rs = stmt.executeQuery(query);
+		rs.setFetchSize(5); //每次缓存中取多少条
 //		rs.updateString("sex", "no");		
 		//添加数据
 		String upd = "insert into test(name,sex) values(\"name01\",\"sex01\")";
