@@ -312,5 +312,42 @@ public class IoUtils {
 		return o;
 		
 	}
+	
+	/**
+	 * 文件转码
+	 * @param srcFile  源文件
+	 * @param destPath 目标文件路径，文件名与源文件名相同
+	 * @throws Exception
+	 */
+	public static void transCoding(String srcFile, String destPath)
+			throws Exception {
+		File srcF = new File(srcFile); //源文件
+		File destF = new File(destPath+srcF.getName()); //目标文件
+		String fileContent = "";
+		// 读文件
+		// 判断是否为一个文件且存在
+		if (srcF.isFile() && srcF.exists()) {
+			 InputStreamReader read = new InputStreamReader(new FileInputStream(srcF), "GBK");
+//			Reader read = new FileReader(srcF);
+			BufferedReader reader = new BufferedReader(read);
+			String line;
+			while ((line = reader.readLine()) != null) {
+				fileContent += line + "\n";
+			}
+			read.close();
+		}
+		//写文件
+		OutputStream out = new FileOutputStream(destF);
+		OutputStreamWriter writeOut = new OutputStreamWriter(out,"utf-8");
+		BufferedWriter bufOut = new BufferedWriter(writeOut);
+		if(!destF.exists()){
+			destF.createNewFile();
+		}
+		bufOut.write(fileContent,0,fileContent.length());
+		bufOut.close();
+	}
+
+	
+	
 
 }
