@@ -159,40 +159,6 @@ public class IoUtils {
 		return fileContent;
 	}
 	
-
-
-
-	/**
-	 * 文件拷贝
-	 * 
-	 * @param fileName1
-	 * @param fileName2
-	 * @throws Exception
-	 */
-	public static void copyFile(String fileName1, String fileName2)
-			throws Exception {
-		InputStream in = new FileInputStream(fileName1);
-		OutputStream out = new FileOutputStream(fileName2);
-		byte[] buf = new byte[1024];
-		File file1 = new File(fileName1);
-		File file2 = new File(fileName2);
-		// 判断file1是否存在
-		if (!file1.exists()) {
-			file1.createNewFile();
-		}
-		// 判断file2是否存在
-		if (!file2.exists()) {
-			file2.createNewFile();
-		}
-		// 拷贝文件
-		while (in.read(buf) != -1) {
-			out.write(buf);
-		}
-		in.close();
-		out.close();
-		System.out.println("done!");
-	}
-	
 	
 	/**
 	 * 写文件（OutputStreamWriter）
@@ -348,6 +314,58 @@ public class IoUtils {
 	}
 
 	
+	/**
+	 * 移动文件
+	 * @param srcFile 源文件路径及文件名
+	 * @param destPath 目标文件路径
+	 * @return
+	 */
+	public static boolean moveFile(String srcFile,String destPath){
+		File file = new File(srcFile);
+		File dir = new File(destPath);
+		File destFile = new File(dir,file.getName());
+		if(destFile.exists()){
+			destFile.delete();
+		}
+		boolean success = file.renameTo(destFile);
+		return success;
+	}
 	
+	
+	/**
+	 * 文件拷贝
+	 * 
+	 * @param fileName1
+	 * @param fileName2
+	 * @throws Exception
+	 */
+	public static void copyFile(String fileName1, String fileName2)
+			throws Exception {
+//		InputStream in = new FileInputStream(fileName1);
+		BufferedInputStream in = new BufferedInputStream(
+				new FileInputStream(fileName1));
+//		OutputStream out = new FileOutputStream(fileName2);
+		BufferedOutputStream out = new BufferedOutputStream(
+				new FileOutputStream(fileName2));
+		byte[] buf = new byte[1024];
+		File file1 = new File(fileName1);
+		File file2 = new File(fileName2);
+		// 判断file1是否存在
+		if (!file1.exists()) {
+			file1.createNewFile();
+		}
+		// 判断file2是否存在
+		if (!file2.exists()) {
+			file2.createNewFile();
+		}
+		// 拷贝文件
+		while (in.read(buf) != -1) {
+			out.write(buf);
+		}
+		in.close();
+		out.close();
+//		System.out.println("done!");
+	}
+
 
 }
