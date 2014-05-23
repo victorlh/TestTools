@@ -359,8 +359,9 @@ public class IoUtils {
 			file2.createNewFile();
 		}
 		// 拷贝文件
-		while (in.read(buf) != -1) {
-			out.write(buf);
+		int i;
+		while ((i=in.read(buf)) != -1) {
+			out.write(buf, 0, i); 
 		}
 		in.close();
 		out.close();
