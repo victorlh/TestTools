@@ -24,6 +24,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import tools.FileTranscoding;
+
 public class IoUtils {
 	//InputStream  为字节流
 	//InputStreamReader 
@@ -366,6 +368,40 @@ public class IoUtils {
 		in.close();
 		out.close();
 //		System.out.println("done!");
+	}
+	
+	/**
+	 * 考贝文件夹，及文件夹下的文件和文件夹
+	 * @param srcPath
+	 * @param destPath
+	 */
+	public static void copydirs(String srcPath,String destPath){
+		File srcdir = new File(srcPath);
+		File destdir = new File(destPath);
+		if(!destdir.exists()){
+			destdir.mkdir();
+		}
+		//获取源文件夹当前下的文件或目录
+		File[] fileList = srcdir.listFiles();
+		for(int i=0;i<fileList.length;i++){
+			if(fileList[i].isFile()){
+				//复制文件
+				try {
+					IoUtils.copyFile(fileList[i].toString(), 
+							destPath+File.separator+fileList[i].getName());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else if(fileList[i].isDirectory()){
+				//复制目录 
+				String sorceDir = srcPath+File.separator+fileList[i].getName();
+				String targetDir = destPath+File.separator+fileList[i].getName();
+				//递归复制
+				copydirs(sorceDir,targetDir);
+			}
+		}
+		
 	}
 
 
