@@ -24,8 +24,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import tools.FileTranscoding;
-
 public class IoUtils {
 	//InputStream  为字节流
 	//InputStreamReader 
